@@ -1,0 +1,99 @@
+class No:
+    def __init__(self, valor):
+        self.valor = valor
+        self.left = None
+        self.right = None
+
+class ArvoreBinaria:
+    def __init__(self):
+        self.root = None
+
+    def inserir_nivel(self, valores):
+        if not valores:
+            return
+
+        fila = []
+        if self.root is None:
+            self.root = No(valores.pop(0))
+            fila.append(self.root)
+
+        while valores:
+            current_node = fila.pop(0)
+            left_value = valores.pop(0)
+            if left_value is not None:
+                current_node.left = No(left_value)
+                fila.append(current_node.left)
+
+            if valores:
+                right_value = valores.pop(0)
+                if right_value is not None:
+                    current_node.right = No(right_value)
+                    fila.append(current_node.right)
+
+    def altura(self):
+        return self._altura_recursivamente(self.root)
+
+    def _altura_recursivamente(self, node):
+        if node is None:
+            return 0
+        else:
+            left_height = self._altura_recursivamente(node.left)
+            right_height = self._altura_recursivamente(node.right)
+            return max(left_height, right_height) + 1
+
+    def nos_internos(self):
+        return self._nos_internos_recursivamente(self.root)
+
+    def _nos_internos_recursivamente(self, node):
+        if node is None:
+            return 0
+        if node.left or node.right:
+            return 1 + self._nos_internos_recursivamente(node.left) + self._nos_internos_recursivamente(node.right)
+        else:
+            return 0
+
+    def folhas(self):
+        return self._folhas_recursivamente(self.root)
+
+    def _folhas_recursivamente(self, node):
+        if node is None:
+            return 0
+        if node.left is None and node.right is None:
+            return 1
+        else:
+            return self._folhas_recursivamente(node.left) + self._folhas_recursivamente(node.right)
+
+    def buscar(self, valor):
+        return self._buscar_recursivamente(self.root, valor)
+
+    def _buscar_recursivamente(self, node, valor):
+        if node is None:
+            return False
+        if node.valor == valor:
+            return True
+        elif valor < node.valor:
+            return self._buscar_recursivamente(node.left, valor)
+        else:
+            return self._buscar_recursivamente(node.right, valor)
+
+    def info_arvore(self):
+        altura = self.altura()
+        nos_internos = self.nos_internos()
+        folhas = self.folhas()
+
+        print(f"Raiz: {self.root.valor}")
+        print(f"Altura: {altura}")
+        print(f"Nós internos: {nos_internos}")
+        print(f"Folhas: {folhas}")
+
+# Exemplo de uso:
+valores = [10, 5, 15, 3, 7, None, 18]
+arvore = ArvoreBinaria()
+arvore.inserir_nivel(valores)
+arvore.info_arvore()
+numero_busca = int(input("Procure por um número na árvore: "))
+
+if arvore.buscar(numero_busca):
+    print(f"O número {numero_busca} está presente na árvore.")
+else:
+    print(f"O número {numero_busca} não está presente na árvore.")
