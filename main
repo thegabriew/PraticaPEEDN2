@@ -82,12 +82,12 @@ class ArvoreBinaria:
         folhas = self.folhas()
 
         print(f"Raiz: {self.root.valor}")
-        print(f"Altura: {altura}")
+        print(f"Altura: {altura-1}")
         print(f"Nós internos: {nos_internos}")
         print(f"Folhas: {folhas}")
 
-# Exemplo de uso:
-valores = [10, 5, 15, 3, 7, None, 18]
+#Usando:
+valores = [10, 5, 15, 3, 7, 20, 18]
 arvore = ArvoreBinaria()
 arvore.inserir_nivel(valores)
 arvore.info_arvore()
