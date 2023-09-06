@@ -65,10 +65,8 @@ class ArvoreBinaria:
         else:
             return self._buscar_recursivamente(node.right, valor)
 
-# Criar uma instância da árvore
 arvore = ArvoreBinaria()
 
-# Solicitar valores ao usuário
 while True:
     try:
         valor = int(input("Insira um valor para a árvore (-1 para parar): "))
@@ -78,7 +76,6 @@ while True:
     except ValueError:
         print("Por favor, insira um valor numérico válido.")
 
-# Menu de seleção
 print("------\n MENU")
 print("------")
 print("")
